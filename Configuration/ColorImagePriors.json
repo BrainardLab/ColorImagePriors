@@ -24,5 +24,18 @@
 		"type": "include",
 		"update": "never",
 		"url": ""
+	},
+{
+		"flavor": "",
+		"hook": "",
+		"importance": "",
+		"localHookTemplate": "",
+		"name": "BLS-GSM-denoising",
+		"pathPlacement": "append",
+		"subfolder": "",
+		"toolboxRoot": "",
+		"type": "include",
+		"update": "never",
+		"url": ""
 	}
 ]
