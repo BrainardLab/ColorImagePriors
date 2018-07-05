@@ -22,23 +22,20 @@ if (ispref(projectName))
     rmpref(projectName);
 end
 
-%% Set preferences for project output
-%
-% This will need to be locally configured.
-
 %% Specify base paths for materials and data
 [~, userID] = system('whoami');
 userID = strtrim(userID);
 switch userID
     case {'dhb'}
-        imageDataBaseDir = '/Users1/Users1Shared/Matlab/Analysis/ColorImagePriors/ImageDatabase';
+        baseDir = '/Users1/Users1Shared/Matlab/Analysis/ColorImagePriors';
     case {'Lingqi'}
-        imageDataBaseDir = '/Users/';
+        baseDir = '/Users/';
     otherwise
+        baseDir  = fullfile(userpath,'output','ColorImagePriors');
 end
 
-% Set the preferences
-setpref('ColorImagePriors','imageDataBaseDir',imageDataBaseDir );
+%% Set the preferences
+setpref(projectName,'imageDataBaseDir',fullfile(baseDir,'ImageDatabase'));
 
 
 
