@@ -1,5 +1,5 @@
-function LightnessPopCodeLocalHook
-% LightnessPopCodeLocalHook
+function ColorImagePriorsLocalHook
+% ColorImagePriors
 %
 % Configure things for working on the LightnessPopCode project.
 %
@@ -16,8 +16,8 @@ function LightnessPopCodeLocalHook
 fprintf('Running LightnessPopCode local hook\n');
 
 %% Specify project name and location
-projectName = 'LightnessPopCode';
-projectBaseDir = tbLocateProject('LightnessPopCode');
+projectName = 'ColorImagePriors';
+projectBaseDir = tbLocateProject('ColorImagePriors');
 if (ispref(projectName))
     rmpref(projectName);
 end
@@ -25,26 +25,21 @@ end
 %% Set preferences for project output
 %
 % This will need to be locally configured.
-outputBaseDir = '/Users1/Users1Shared/Matlab/Experiments/LightnessV4/PennOutput';
-physiologyInputBaseDir = '/Users1/Users1Shared/Matlab/Experiments/LightnessV4/Pitt/Data';
-psychoInputBaseDir = '/Users1/Users1Shared/Matlab/Experiments/LightnessV4/PennPsychoData';
-stimulusInputBaseDir = '/Users1/Users1Shared/Matlab/Experiments/LightnessV4/stimuli';
-stimulusDefInputBaseDir = fullfile(projectBaseDir,'stimuli');
+
+%% Specify base paths for materials and data
+[~, userID] = system('whoami');
+userID = strtrim(userID);
+switch userID
+    case {'dhb'}
+        imageDataBaseDir = '/Users1/Users1Shared/Matlab/Analysis/ColorImagePriors/ImageDatabase';
+    case {'Lingqi'}
+        imageDataBaseDir = '/Users/';
+    otherwise
+end
 
 % Set the preferences
-setpref('LightnessPopCode','outputBaseDir',outputBaseDir);
-setpref('LightnessPopCode','physiologyInputBaseDir',physiologyInputBaseDir);
-setpref('LightnessPopCode','psychoInputBaseDir',psychoInputBaseDir);
-setpref('LightnessPopCode','stimulusInputBaseDir',stimulusInputBaseDir);
-setpref('LightnessPopCode','stimulusDefInputBaseDir',stimulusDefInputBaseDir);
+setpref('ColorImagePriors','imageDataBaseDir',imageDataBaseDir );
 
-%% Set preferences for where paper figures should end up.
-%
-% This is used by script figureforpaper/CopyOverFigures to collect up and
-% organize the figures parts that end up in the paper.
-%
-% This is formatted so it can be passed to the linux shell.
-setpref('LightnessPopCode','figureDir','/Volumes/Users1/DropboxPersonal/xPapers/xUnderReview/LightnessV4Paper1/DBFigures');
-setpref('LightnessPopCode','figureDirCVLasso','/Volumes/Users1/DropboxPersonal/xPapers/xUnderReview/LightnessV4Paper1/DBFiguresCVLasso');
-setpref('LightnessPopCode','figureDirCVRidge','/Volumes/Users1/DropboxPersonal/xPapers/xUnderReview/LightnessV4Paper1/DBFiguresCVRidge');
+
+
 
