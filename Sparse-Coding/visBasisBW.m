@@ -1,30 +1,9 @@
-%% Const 
-imgDim = 11;
+function basisImg = visBasisBW(basisSet, imgDim, basisSize)
+% visBasisBW Visualization of gray scale basis function
+
 dx = imgDim;
 dy = imgDim;
 
-nData = 1e5;
-basisSize = 13 * 13;
-
-%% Reformatting Data
-data = load('caltech101patches');
-colImages = reshape(data.X', dx, dy, 3, nData);
-bwImages  = zeros(dx, dy, nData);
-
-for idx = 1:nData
-    img   = colImages(:, :, :, idx);
-    bwImg = rgb2gray(img);
-    
-    bwImages(:, :, idx) = bwImg;
-end
-
-bwImages = reshape(bwImages, dx * dy, nData)';
-
-%% Filtering Learning
-res = rica(bwImages, basisSize, 'IterationLimit', 2e4, 'VerbosityLevel', 1);
-
-%% Visulization
-basisSet = res.TransformWeights;
 basisSet = reshape(basisSet, [dx, dy, basisSize]);
 
 % M by M large "image"
@@ -46,4 +25,5 @@ for i = 1:allDim
     end
 end
 
-imshow(basisImg, 'InitialMagnification', 600);
+end
+

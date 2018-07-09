@@ -7,8 +7,8 @@ dy = imgDim;
 data = load('caltech101patches');
 images = data.X;
 
-basisSize = 1e2;
-res = rica(images, basisSize, 'IterationLimit', 2e3, 'VerbosityLevel', 1);
+basisSize = 4e2;
+res = rica(images, basisSize, 'IterationLimit', 1e3, 'VerbosityLevel', 1);
 
 %% Visulization of Learned Basis
 basisSet = res.TransformWeights;
