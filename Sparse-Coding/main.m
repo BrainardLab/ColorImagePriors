@@ -31,10 +31,22 @@ transMatrix = res.TransformWeights;
 imshow(visBasisBW(transMatrix, imgDim, basisSize), 'InitialMagnification', 600);
 
 %% Reconstruction (simple linear reconstruction)
+idxLow = 200; idxHigh = 300;
+
 boatImg = im2double(imread('boat.png'));
-ornImg  = boatImg;
+% boatImg = boatImg(idxLow:idxHigh, idxLow:idxHigh);
+
+reconLinear = boatImg;
+reconSparse = boatImg;
+reconSample = boatImg;
 
 [reDim,  ~] = size(boatImg);
+
+nSample = 81;
+idx = sort(datasample(1 : dx * dy, nSample, 'Replace', false));
+        
+render = eye(dx * dy);
+render = render(idx, :);
 
 nPatch = floor(reDim / imgDim);
 for i = 1:nPatch
@@ -45,13 +57,28 @@ for i = 1:nPatch
         
         % Linear projection and reconstruction
         reconPatch = transMatrix * transMatrix' * imgPatch;
-        boatImg( (i-1) * dx + 1:i * dx, (j-1) * dy + 1:j * dy) = reshape(reconPatch, [dx, dy]);        
+        reconLinear( (i-1) * dx + 1:i * dx, (j-1) * dy + 1:j * dy) = reshape(reconPatch, [dx, dy]);  
+        
+        % Nonlinear (sparse) reconstruction        
+        reconPatch = sparseReconBW(imgPatch, transMatrix, eye(dx * dy), 0.01);        
+        reconSparse( (i-1) * dx + 1:i * dx, (j-1) * dy + 1:j * dy) = reshape(reconPatch, [dx, dy]);   
+        
+        % Reconstruction with subsample                
+        reconPatch = sparseReconBW(render * imgPatch, transMatrix, render, 0.1);  
+        reconSample( (i-1) * dx + 1:i * dx, (j-1) * dy + 1:j * dy) = reshape(reconPatch, [dx, dy]);   
     end
 end
 
 figure;
-subplot(1, 2, 1);
-imshow(ornImg);
+subplot(2, 2, 1);
+imshow(boatImg);
 
-subplot(1, 2, 2);
-imshow(boatImg)
+subplot(2, 2, 2);
+imshow(reconLinear)
+
+subplot(2, 2, 3);
+imshow(reconSparse)
+
+subplot(2, 2, 4);
+imshow(reconSample);
+
