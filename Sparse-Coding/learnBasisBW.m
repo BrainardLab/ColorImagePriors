@@ -1,4 +1,4 @@
-function [basis, basisImg] = learnBasisBW(X, imgDim, basisSize)
+function [basis, basisImg] = learnBasisBW(X, imgDim, basisSize, maxIter)
 % ICA basis learning for gray scale images. 
 %
 % Syntax: 
@@ -10,15 +10,16 @@ function [basis, basisImg] = learnBasisBW(X, imgDim, basisSize)
 %   sparsity regularizer.  
 %
 % Inputs: 
-%   X         - Input data set of dimension [n, (imgDim * imgDim)]
-%   imgDim    - Height and width of the inptu image patches (assumed to be square)
+%   X          - Input data set of dimension [n, (imgDim * imgDim)]
+%   imgDim     - Height and width of the inptu image patches (assumed to be square)
 %   basisSize  - Number of basis vector we want 
+%   maxIter    - Max number of iteration allowed
 %
 % Outputs:
 %   basis     - Set of learned basis of dimension [(imgDim * imgDim), basisSize]
 %
 
-res = rica(X, basisSize, 'IterationLimit', 2e4, 'VerbosityLevel', 1);
+res = rica(X, basisSize, 'IterationLimit', maxIter, 'VerbosityLevel', 1);
 basis = res.TransformWeights;
 
 basisImg = visBasisBW(basis, imgDim, basisSize);

@@ -21,8 +21,21 @@ end
 
 bwImages = reshape(bwImages, dx * dy, nData)';
 
+%% Whitening of input image
+% Zero mean
+bwImages = bwImages - mean(bwImages);
+
+% Decorrelation
+covarImg  = cov(bwImages);
+[V, D]    = eig(covarImg);
+
+decorrImg = bwImages * V;
+whiteImg  = decorrImg ./ sqrt((diag(D)'));
+
 %% RICA
-[basis, basisImg] = learnBasisBW(bwImages, imgDim, basisSize);
+% [basis, basisImg] = learnBasisBW(bwImages, imgDim, basisSize, 2e2);
+[basis, basisImg] = learnBasisBW(whiteImg, imgDim, basisSize, 1e3);
+imshow(basisImg, 'InitialMagnification', 600);
 
 %% Visulization of basis 
 figure;
