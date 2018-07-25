@@ -2,20 +2,19 @@
 imgDim = 11; dx = imgDim; dy = imgDim;
 basisSize = 4e2;
 
+load('colorTransMatrix.mat')
 %% TODO: Visulization of basis 
-figure;
 
-transMatrix = res.TransformWeights;
-imshow(visBasisBW(transMatrix, imgDim, basisSize), 'InitialMagnification', 600);
 
 %% Reconstruction (simple linear reconstruction)
-boatImg = im2double(imread('plane.jpg'));
+testImg = im2double(imread('plane.jpg'));
+testImg = testImg(48:158, 1:200, :);
 
-reconLinear = boatImg;
-reconSparse = boatImg;
-reconSample = boatImg;
+reconLinear = testImg;
+reconSparse = testImg;
+reconSample = testImg;
 
-[reDimX,  reDimY] = size(boatImg);
+[reDimX, reDimY, ~] = size(testImg);
 
 nSample = 110 * 3;
 idx = sort(datasample(1 : dx * dy * 3, nSample, 'Replace', false));
@@ -26,7 +25,7 @@ render = render(idx, :);
 for i = 1 : floor(reDimX / imgDim)
     for j = 1 : floor(reDimY / imgDim)
         % Access to original image
-        imgPatch = reshape(boatImg( (i-1) * dx + 1:i * dx, (j-1) * dy + 1:j * dy, :), ...
+        imgPatch = reshape(testImg( (i-1) * dx + 1:i * dx, (j-1) * dy + 1:j * dy, :), ...
         [dx * dy * 3, 1]);
         
         % Linear projection and reconstruction
@@ -34,7 +33,7 @@ for i = 1 : floor(reDimX / imgDim)
         reconLinear( (i-1) * dx + 1:i * dx, (j-1) * dy + 1:j * dy, :) = reshape(reconPatch, [dx, dy, 3]);  
         
         % Nonlinear (sparse) reconstruction        
-        reconPatch = sparseReconBW(imgPatch, transMatrix, eye(dx * dy), 0.01);        
+        reconPatch = sparseReconBW(imgPatch, transMatrix, eye(dx * dy * 3), 0.01);        
         reconSparse( (i-1) * dx + 1:i * dx, (j-1) * dy + 1:j * dy, :) = reshape(reconPatch, [dx, dy, 3]);   
         
         % Reconstruction with subsample                
@@ -47,7 +46,7 @@ end
 
 figure;
 subplot(2, 2, 1);
-imshow(boatImg);
+imshow(testImg);
 
 subplot(2, 2, 2);
 imshow(reconLinear)

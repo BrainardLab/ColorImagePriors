@@ -9,7 +9,7 @@ images = data.X;
 basisSize = 4e2;
 
 %% Learning Basis Set
-res = sparsefilt(images, basisSize, 'VerbosityLevel', 1);
+res = sparsefilt(images, basisSize, 'IterationLimit', 2e5, 'VerbosityLevel', 1);
 basisSet = res.TransformWeights;
 
 %% Visulization of Learned Basis
