@@ -8,7 +8,10 @@ lossSparse = @(coff) sum(abs(coff));
 loss = @(coff) lossImg(coff) + alpha * lossSparse(coff);
 init = zeros(nDim, 1);
 
-coff =fmincon(loss, init, [], []);
+options = optimoptions('fmincon');
+options.MaxFunctionEvaluations = 1e5;
+
+coff = fmincon(loss, init, [],[],[],[],[],[],[], options);
 
 reconImg = basis * coff;
 end

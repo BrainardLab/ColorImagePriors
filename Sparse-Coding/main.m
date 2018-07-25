@@ -6,7 +6,7 @@ basisSize = 13 * 13;
 
 %% TODO: sampling random image patches 
 
-%% Caltech 101 Dataset, Reformatting Data
+%% Caltech 101 Dataset, Grayscale image
 
 data = load('caltech101patches');
 colImages = reshape(data.X', dx, dy, 3, nData);
@@ -81,6 +81,8 @@ for i = 1:nPatch
         reconSample( (i-1) * dx + 1:i * dx, (j-1) * dy + 1:j * dy) = reshape(reconPatch, [dx, dy]);   
     end
 end
+
+%% Plot Reconstruction
 
 figure;
 subplot(2, 2, 1);

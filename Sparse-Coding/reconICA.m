@@ -3,12 +3,12 @@ imgDim = 11;
 dx = imgDim;
 dy = imgDim;
 
-%% Filter Basis Learning
+%% Filter Basis Learning for Color Images
 data = load('caltech101patches');
 images = data.X;
 
 basisSize = 4e2;
-res = rica(images, basisSize, 'IterationLimit', 1e3, 'VerbosityLevel', 1);
+res = rica(images, basisSize, 'IterationLimit', 2e4, 'VerbosityLevel', 1);
 
 %% Visulization of Learned Basis
 basisSet = res.TransformWeights;
@@ -33,4 +33,4 @@ for i = 1:allDim
     end
 end
 
-imshow(basisImg, 'InitialMagnification', 600);
+imshow(basisImg, 'InitialMagnification', 500);
