@@ -15,7 +15,8 @@ res = rica(images, basisSize, 'IterationLimit', 1e4, 'VerbosityLevel', 1, 'Lambd
 %     'InitialTransformWeights', transMatrix, 'Lambda', 10);
 
 %% Visulization of Learned Basis
-basisSet = res.TransformWeights;
+% basisSet = res.TransformWeights;
+basisSet = transMatrix;
 basisSet = reshape(basisSet, [dx, dy, 3, basisSize]);
 
 % 10 by 10 large "image"
@@ -37,4 +38,4 @@ for i = 1:allDim
     end
 end
 
-imshow(basisImg, 'InitialMagnification', 500);
+imshow(basisImg, 'InitialMagnification', 300);
