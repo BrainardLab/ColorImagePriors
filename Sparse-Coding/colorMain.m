@@ -16,7 +16,7 @@ reconSample = testImg;
 
 [reDimX, reDimY, ~] = size(testImg);
 
-nSample = 110 * 3;
+nSample = 64 * 3;
 idx = sort(datasample(1 : dx * dy * 3, nSample, 'Replace', false));
         
 render = eye(dx * dy * 3);
@@ -29,8 +29,8 @@ for i = 1 : floor(reDimX / imgDim)
         [dx * dy * 3, 1]);
         
         % Linear projection and reconstruction
-        reconPatch = transMatrix * transMatrix' * imgPatch;
-        reconLinear( (i-1) * dx + 1:i * dx, (j-1) * dy + 1:j * dy, :) = reshape(reconPatch, [dx, dy, 3]);  
+%         reconPatch = transMatrix * transMatrix' * imgPatch;
+%         reconLinear( (i-1) * dx + 1:i * dx, (j-1) * dy + 1:j * dy, :) = reshape(reconPatch, [dx, dy, 3]);  
         
         % Nonlinear (sparse) reconstruction        
         reconPatch = sparseReconBW(imgPatch, transMatrix, eye(dx * dy * 3), 0.01);        
@@ -45,14 +45,11 @@ end
 %% Plot Reconstruction
 
 figure;
-subplot(2, 2, 1);
+subplot(3, 1, 1);
 imshow(testImg);
 
-subplot(2, 2, 2);
-imshow(reconLinear)
-
-subplot(2, 2, 3);
+subplot(3, 1, 2);
 imshow(reconSparse)
 
-subplot(2, 2, 4);
+subplot(3, 1, 3);
 imshow(reconSample);
