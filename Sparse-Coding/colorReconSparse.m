@@ -4,7 +4,10 @@
 imgDim = 11; dx = imgDim; dy = imgDim;
 basisSize = 4e2;
 
-load('colorTransMatrix.mat')
+load('ricaFull.mat'); 
+% load('transformWeights.mat');
+% transMatrix = res2k.transformWeights;
+
 %% TODO: Visulization of basis 
 
 
@@ -28,14 +31,10 @@ for i = 1 : floor(reDimX / imgDim)
     for j = 1 : floor(reDimY / imgDim)
         % Access to original image
         imgPatch = reshape(testImg( (i-1) * dx + 1:i * dx, (j-1) * dy + 1:j * dy, :), ...
-        [dx * dy * 3, 1]);
-        
-        % Linear projection and reconstruction
-%         reconPatch = transMatrix * transMatrix' * imgPatch;
-%         reconLinear( (i-1) * dx + 1:i * dx, (j-1) * dy + 1:j * dy, :) = reshape(reconPatch, [dx, dy, 3]);  
+        [dx * dy * 3, 1]);  
         
         % Nonlinear (sparse) reconstruction        
-        reconPatch = lassoRecon(imgPatch, transMatrix, eye(dx * dy * 3), 0.01);        
+        reconPatch = lassoRecon(imgPatch, transMatrix, eye(dx * dy * 3), 0.001);        
         reconSparse( (i-1) * dx + 1:i * dx, (j-1) * dy + 1:j * dy, :) = reshape(reconPatch, [dx, dy, 3]);   
         
         % Reconstruction with subsample                

@@ -38,4 +38,5 @@ for i = 1:allDim
     end
 end
 
+figure;
 imshow(basisImg, 'InitialMagnification', 300);
