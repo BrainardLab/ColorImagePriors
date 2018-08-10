@@ -1,3 +1,5 @@
+% Script for image reconstruction (with subsamples) in color image domain
+
 %% Set up constants 
 imgDim = 11; dx = imgDim; dy = imgDim;
 basisSize = 4e2;

@@ -10,9 +10,9 @@ basisSize = 4e2;
 
 %% Learning Basis Set
 res = sparsefilt(images, basisSize, 'IterationLimit', 2e5, 'VerbosityLevel', 1);
-basisSet = res.TransformWeights;
 
 %% Visulization of Learned Basis
+basisSet = res.TransformWeights;
 basisSet = reshape(basisSet, [dx, dy, 3, basisSize]);
 
 % 10 by 10 large "image"
@@ -32,4 +32,4 @@ for i = 1:allDim
     end
 end
 
-imshow(basisImg,'InitialMagnification',300);
+imshow(basisImg,'InitialMagnification', 500);

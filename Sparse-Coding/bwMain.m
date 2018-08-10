@@ -43,7 +43,7 @@ for i = 1:nPatch
         reconSparse( (i-1) * dx + 1:i * dx, (j-1) * dy + 1:j * dy) = reshape(reconPatch, [dx, dy]);   
         
         % Reconstruction with subsample                
-        reconPatch = sparseReconBW(render * imgPatch, transMatrix, render, 0.1);  
+        reconPatch = sparseReconBW(render * imgPatch, transMatrix, render, 0.02);  
         reconSample( (i-1) * dx + 1:i * dx, (j-1) * dy + 1:j * dy) = reshape(reconPatch, [dx, dy]);   
     end
 end
