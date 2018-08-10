@@ -9,15 +9,13 @@ basisSize = 4e2;
 data = load('caltech101patches');
 images = data.X;
 
-res = rica(images, basisSize, 'IterationLimit', 2e5, 'VerbosityLevel', 1, ...
-    'InitialTransformWeights', transMatrix);
+res = rica(images, basisSize, 'IterationLimit', 1e4, 'VerbosityLevel', 1, 'Lambda', 10);
 
-% res = rica(images, basisSize, 'IterationLimit', 2e5, 'VerbosityLevel', 1);
+% res = rica(images, basisSize, 'IterationLimit', 1e3, 'VerbosityLevel', 1, ...
+%     'InitialTransformWeights', transMatrix, 'Lambda', 10);
 
 %% Visulization of Learned Basis
-% basisSet = res.TransformWeights;
-
-basisSet = transMatrix;
+basisSet = res.TransformWeights;
 basisSet = reshape(basisSet, [dx, dy, 3, basisSize]);
 
 % 10 by 10 large "image"
@@ -39,4 +37,4 @@ for i = 1:allDim
     end
 end
 
-imshow(basisImg, 'InitialMagnification', 400);
+imshow(basisImg, 'InitialMagnification', 500);
