@@ -4,7 +4,8 @@
 imgDim = 11; dx = imgDim; dy = imgDim;
 basisSize = 4e2;
 
-load('ricaFull.mat'); 
+load('ricaFull.mat');
+
 % load('transformWeights.mat');
 % transMatrix = res2k.transformWeights;
 
@@ -21,7 +22,7 @@ reconSample = testImg;
 
 [reDimX, reDimY, ~] = size(testImg);
 
-nSample = 64 * 3;
+nSample = 30 * 3;
 idx = sort(datasample(1 : dx * dy * 3, nSample, 'Replace', false));
         
 render = eye(dx * dy * 3);
