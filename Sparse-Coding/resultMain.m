@@ -4,8 +4,13 @@ load('pcaBasis.mat');
 
 imgDim = 11; dx = imgDim; dy = imgDim;
 
-subSample = (110 : -5 : 20) * 3;
+subSample = (120 : -5 : 5) * 3;
+
 sparseCoff = 0.3;
+ridgeCoff  = 0.1;
+
+scaleMatrix = diag(sqrt(pcaVar));
+regBasis    = pcaBasis * scaleMatrix;
 
 %% Reconstruction Algorithm
 mseSparse = zeros(length(subSample), 1);
@@ -19,20 +24,17 @@ for idx = 1 : length(subSample)
     render = render(renderIdx, :);
     
     mseSparse(idx) = imgReconFun(@lassoRecon, transMatrix, render, sparseCoff, false);
-    msePCA(idx)    = imgReconFun(@pcaRecon, pcaBasis, render, sparseCoff, false);
+    msePCA(idx)    = imgReconFun(@pcaRecon, regBasis, render, ridgeCoff, false);
 end
 
 %% Plot Results
 figure; 
+grid on; hold on; xlabel('# of sample'); ylabel('mse pp');
 
-subplot(2, 1, 1); 
 plot(subSample, sqrt(mseSparse), '-o'); 
-grid on; xlabel('# of sample'); ylabel('rmse pp');
-title('rmse sparse reconstruction');
+plot(subSample, sqrt(msePCA), '-o');
+
+title('mse reconstruction');
 set(gca, 'XDir','reverse');
 
-subplot(2, 1, 2); 
-plot(subSample, sqrt(msePCA), '-o');
-grid on; xlabel('# of sample'); ylabel('rmse pp');
-title('rmse pca reconstruction')
-set(gca, 'XDir','reverse');
+legend({'Sparse', 'PCA'});

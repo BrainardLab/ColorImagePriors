@@ -1,4 +1,4 @@
-function mse = imgReconFun(reconFun, transMatrix, render, sparseCoff, showPlot)
+function mse = imgReconFun(reconFun, transMatrix, render, priorCoff, showPlot)
 %COLORRECON Reconstruction for color image
 
 % Set up constants 
@@ -20,7 +20,7 @@ for i = 1 : floor(reDimX / imgDim)
         [dx * dy * 3, 1]);  
                         
         % Reconstruction with subsample                
-        reconPatch = reconFun(render * imgPatch, transMatrix, render, sparseCoff);  
+        reconPatch = reconFun(render * imgPatch, transMatrix, render, priorCoff);  
         reconSample( (i-1) * dx + 1:i * dx, (j-1) * dy + 1:j * dy, :) = reshape(reconPatch, [dx, dy, 3]);   
     end
 end

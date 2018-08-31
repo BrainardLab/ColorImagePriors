@@ -1,11 +1,16 @@
-function pcaReconImg = pcaRecon(input, basis, render, ~)
+function pcaReconImg = pcaRecon(input, basis, render, ridgeCoff)
 %PCARECON PCA baseline reconstruction method
 
-reducedBasis = basis(:, 1 : length(input));
-transMatrix  = render * reducedBasis;
+% 'Alpha'   lasso/elastic net regression
+% 'Lambda'  regularization cofficients 
 
-basisCoff   = transMatrix \ input;
-pcaReconImg = reducedBasis * basisCoff;
+alpha  = 1e-20;
+lambda = ridgeCoff / (2 * length(input));
+
+regressor = render * basis; 
+[B, fitInfo] = lasso(regressor, input, 'Alpha', alpha, 'Lambda', lambda);
+
+pcaReconImg = basis * B + fitInfo.Intercept;
 
 end
 
