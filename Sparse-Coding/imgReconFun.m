@@ -1,4 +1,4 @@
-function mse = imgReconFun(reconFun, transMatrix, render, priorCoff, showPlot)
+function [mse, reconSample] = imgReconFun(reconFun, transMatrix, render, priorCoff, showPlot)
 %COLORRECON Reconstruction for color image
 
 % Set up constants 
