@@ -3,13 +3,13 @@ imgDim = 11;
 dx = imgDim;
 dy = imgDim;
 
-basisSize = 4e2;
+basisSize = 24 * 24;
 
 %% Filter Basis Learning for Color Images
 data = load('caltech101patches');
 images = data.X;
 
-res = rica(images, basisSize, 'IterationLimit', 1e4, 'VerbosityLevel', 1, 'Lambda', 10);
+res = rica(images, basisSize, 'IterationLimit', 1e5, 'VerbosityLevel', 1);
 
 % res = rica(images, basisSize, 'IterationLimit', 1e3, 'VerbosityLevel', 1, ...
 %     'InitialTransformWeights', transMatrix, 'Lambda', 10);
