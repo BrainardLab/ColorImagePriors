@@ -1,5 +1,26 @@
 function [mse, reconSample] = imgReconFun(reconFun, transMatrix, render, priorCoff, showPlot)
-%COLORRECON Reconstruction for color image
+% Patch-by-patch reconstruction of color image
+% 
+% Syntax:
+%   mse = imgReconFun(reconFun, transMatrix, render, priorCoff, showPlot)
+%   [mse, reconImg] = imgReconFun(reconFun, transMatrix, render, priorCoff, showPlot)
+% 
+% Description:
+%   Patch-by-patch reconstruction of color images use method specified in reconFun.
+%   Compute the mean square error (per pixel). When showPlot = true, also show 
+%   the result of reconstructed image. 
+% 
+% Inputs:
+%   reconFun     - Function handler of the chosen reconstruction method
+%   transMatrix  - Set of basis function (required by reconFun)
+%   render       - Render matrix describing the subsampling
+%   priorCoff    - Regularization cofficient based on some prior 
+%   showPlot     - If set to true, show the reconsturcted image at the end 
+% 
+% Outputs:
+%   mse          - Mean squared error per pixel
+%   reconSample  - Reconsturcted image
+%
 
 % Set up constants 
 imgDim = 11; dx = imgDim; dy = imgDim;
