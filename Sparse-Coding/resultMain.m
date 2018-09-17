@@ -1,3 +1,5 @@
+% Plot mse of reconstruction as a function of # subsample for both PCA and Sparse Coding method
+
 %% Set up constants 
 load('ricaFull.mat');
 load('pcaBasis.mat');

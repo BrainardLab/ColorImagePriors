@@ -1,3 +1,6 @@
+% Find PCA basis with stardard PCA method
+% Test PCA / Ridge regression reconstruction method
+
 %% PCA Basis Learning
 data    = load('caltech101patches');
 imgData = data.X;

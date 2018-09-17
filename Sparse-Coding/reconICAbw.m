@@ -1,10 +1,12 @@
-%% Const 
+% Filter learning procedure for grayscale images of 11 * 11 with RICA algorithm
+
+%% Constants 
 imgDim = 11;
 dx = imgDim;
 dy = imgDim;
 
 nData = 1e5;
-basisSize = 13 * 13;
+basisSize = 25 * 25;
 
 %% Reformatting Data
 data = load('caltech101patches');

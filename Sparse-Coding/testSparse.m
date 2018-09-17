@@ -1,4 +1,4 @@
-% Script for image reconstruction (with subsamples) in color image domain
+% Test Sparse coding / Lasso regression reconstruction method
 
 %% Set up constants 
 imgDim = 11; dx = imgDim; dy = imgDim;
