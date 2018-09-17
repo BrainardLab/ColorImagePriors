@@ -3,6 +3,7 @@ Thinking about priors for color images that go beyond Gaussian.
 
 1. Gaussian Scale Mixture Model
     - #TODO: To be implemented
+    - #TODO: Compare with Sparse and PCA model (for grayscale images)
 
 2. Sparse Coding Based Model (Basic Pipeline)
     - (Sparse) Basis set learning with **reconICA.m** (#TODO: property of the basis as function of **set size** and **image size**)
