@@ -6,7 +6,7 @@ Thinking about priors for color images that go beyond Gaussian.
     - #TODO: Compare with Sparse and PCA model (for grayscale images)
 
 2. Sparse Coding Based Model (Basic Pipeline)
-    - (Sparse) Basis set learning with **reconICA.m** (#TODO: property of the basis as function of **set size** and **image size**)
+    - Basis set learning with **reconICA.m** (#TODO: property of the basis as function of **set size** and **image size**)
     - **Core functions:**
     PCA based reconstruction with **pcaRecon.m** (we have a relatively good understanding of this); Sparse coding based reconsturction with **lassoRecon.m**    
     - Basic testing (debug and so on): **testPCA.m** and **testSparse.m**
