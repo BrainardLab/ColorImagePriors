@@ -11,14 +11,16 @@ function [basis, basisImg] = learnBasisBW(X, imgDim, basisSize, maxIter)
 %
 % Inputs: 
 %   X          - Input data set of dimension [n, (imgDim * imgDim)]
-%   imgDim     - Height and width of the inptu image patches (assumed to be square)
-%   basisSize  - Number of basis vector we want 
+%   imgDim     - Height and width of the input image patches (assumed to be square)
+%   basisSize  - Number of basis function we want 
 %   maxIter    - Max number of iteration allowed
 %
 % Outputs:
 %   basis     - Set of learned basis of dimension [(imgDim * imgDim), basisSize]
 %
 
+
+% RICA method, see MATLAB documentation for detailed implementation 
 res = rica(X, basisSize, 'IterationLimit', maxIter, 'VerbosityLevel', 1);
 basis = res.TransformWeights;
 
