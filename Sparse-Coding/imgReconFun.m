@@ -26,11 +26,13 @@ function [mse, reconSample] = imgReconFun(reconFun, transMatrix, render, priorCo
 imgDim = 11; dx = imgDim; dy = imgDim;
 
 % Reconstruction (simple linear reconstruction)
-testImg = im2double(imread('plane.jpg'));
-testImg = testImg(48:158, 1:200, :);
+% testImg = im2double(imread('plane.jpg'));
+% testImg = testImg(48:158, 1:200, :);
+
+testImg = im2double(imread('nature.jpg'));
+testImg = imresize(testImg, 0.05);
 
 reconSample = testImg;
-
 [reDimX, reDimY, ~] = size(testImg);
 
 % Patch-wise reconstruction

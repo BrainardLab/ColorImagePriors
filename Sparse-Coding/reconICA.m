@@ -5,19 +5,17 @@ imgDim = 11;
 dx = imgDim;
 dy = imgDim;
 
-basisSize = 40 * 40;
+basisSize = 24 * 24;
 
 %% Filter Basis Learning for Color Images
 data = load('caltech101patches');
 images = data.X;
 
-res = rica(images, basisSize, 'IterationLimit', 2e4, 'VerbosityLevel', 1);
-
-% res = rica(images, basisSize, 'IterationLimit', 1e3, 'VerbosityLevel', 1, ...
-%     'InitialTransformWeights', transMatrix, 'Lambda', 10);
-
+% res = rica(images, basisSize, 'IterationLimit', 1e4, 'VerbosityLevel', 1);
+res = rica(images, basisSize, 'IterationLimit', 1e4, 'VerbosityLevel', 1, ...
+    'InitialTransformWeights', basisSet);
+ 
 %% Visulization of Learned Basis
-% basisSet = transMatrix;
 basisSet = res.TransformWeights;
 basisSet = reshape(basisSet, [dx, dy, 3, basisSize]);
 
@@ -30,7 +28,7 @@ for i = 1:allDim
         % Select each Basis Image
         idx   = (i - 1) * allDim + j;
         basis = basisSet(:, :, :, idx);
-        basis = basis(:);
+        basis = basis(:); 
         
         % Normalization
         basis = (basis - min(basis))/(max(basis) - min(basis));

@@ -6,7 +6,7 @@ basisSize = 13 * 13;
 
 %% Visulization of basis 
 figure;
-load('bwTransMatrix.mat');
+load('transMatrix.mat');
 imshow(visBasisBW(transMatrix, imgDim, basisSize), 'InitialMagnification', 400);
 
 %% Reconstruction (simple linear reconstruction)
