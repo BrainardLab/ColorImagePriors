@@ -1,29 +1,20 @@
 % Find PCA basis with stardard PCA method
 % Test PCA / Ridge regression reconstruction method
 
-%% PCA Basis Learning
-data    = load('caltech101patches');
-imgData = data.X;
-
-for idx = 1 : 1e5
-    img = imgData(idx, :);
-    
-    img = img - min(img);
-    img = img / max(img);
-    
-    imgData(idx, :) = img;
-end
-
+%% PCA Basis
+load('./cifar-all-mat/image_all.mat');
+imgData = image_all;
 [pcaBasis, ~, pcaVar] = pca(imgData);
 
 %% Visulization
-basisSize = 363; dx = 11; dy = 11; imgDim = 11;
+basisSize = 3072; 
+dx = 32; dy = 32; imgDim = 32;
 
 basisSet = pcaBasis;
 basisSet = reshape(basisSet, [dx, dy, 3, basisSize]);
 
 % 10 by 10 large "image"
-allDim   = 19; 
+allDim   = 55; 
 basisImg = zeros(allDim * imgDim, allDim * imgDim, 3);
 
 for i = 1:allDim
@@ -42,19 +33,19 @@ for i = 1:allDim
 end
 
 figure;
-imshow(basisImg, 'InitialMagnification', 300);
+imshow(basisImg, 'InitialMagnification', 50);
 
 %% Construct regression basis (euqal variance)
 scaleMatrix = diag(sqrt(pcaVar));
 regBasis    = pcaBasis * scaleMatrix;
 
 %% Test PCA Reconstruction with Full Image
-dx = 11; dy = 11; 
+dx = 32; dy = 32; 
 
-nSample   = 300;
+nSample   = round(dx * dy * 3 * 0.3);
 renderIdx = sort(datasample(1 : dx * dy * 3, nSample, 'Replace', false));
 
 render = eye(dx * dy * 3);
 render = render(renderIdx, :);
 
-imgReconFun(@pcaRecon, regBasis, render, 0.1, true);
+imgReconFun('plane.jpg', @pcaRecon, regBasis, render, 0.2, true);

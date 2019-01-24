@@ -1,4 +1,4 @@
-function [mse, reconSample] = imgReconFun(reconFun, transMatrix, render, priorCoff, showPlot)
+function [mse, reconSample] = imgReconFun(imgName, reconFun, transMatrix, render, priorCoff, showPlot)
 % Patch-by-patch reconstruction of color image
 % 
 % Syntax:
@@ -23,12 +23,17 @@ function [mse, reconSample] = imgReconFun(reconFun, transMatrix, render, priorCo
 %
 
 % Set up constants 
-imgDim = 11; dx = imgDim; dy = imgDim;
+imgDim = 32; dx = imgDim; dy = imgDim;
 
 % Reconstruction (simple linear reconstruction)
-testImg = im2double(imread('plane.jpg'));
-testImg = testImg(48:158, 1:200, :);
 
+% testImg = im2double(imread('plane.jpg'));
+% testImg = testImg(48:158, 1:200, :);
+%  
+% testImg = im2double(imread('nature.jpg'));
+% testImg = imresize(testImg, 0.05);
+
+testImg = im2double(imread(imgName));
 reconSample = testImg;
 
 [reDimX, reDimY, ~] = size(testImg);
@@ -44,9 +49,11 @@ for i = 1 : floor(reDimX / imgDim)
         reconPatch = reconFun(render * imgPatch, transMatrix, render, priorCoff);  
         reconSample( (i-1) * dx + 1:i * dx, (j-1) * dy + 1:j * dy, :) = reshape(reconPatch, [dx, dy, 3]);   
     end
+    fprintf('Reconstruct Complete: %.2f\n', i / floor(reDimX / imgDim));
 end
 
 % Plot reconstruction
+fprintf('Reconstruct Complete!\n');
 if showPlot
     figure;
     subplot(2, 1, 1);

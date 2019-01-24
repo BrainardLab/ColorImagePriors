@@ -1,24 +1,24 @@
-% Filter learning procedure for color images of 11 * 11 * 3 with RICA algorithm 
+% Filter learning procedure for color images of 32 * 32 * 3 with RICA algorithm 
 
 %% Define Constants  
-imgDim = 11;
+imgDim = 16;
 dx = imgDim;
 dy = imgDim;
 
 basisSize = 40 * 40;
 
 %% Filter Basis Learning for Color Images
-data = load('caltech101patches');
-images = data.X;
+load('./cifar-all-mat/image_all_16.mat');
+imgData = image_all;
 
-res = rica(images, basisSize, 'IterationLimit', 2e4, 'VerbosityLevel', 1);
+res = rica(imgData, basisSize, 'IterationLimit', 2.5e4, 'VerbosityLevel', 1, ...
+    'Standardize', true);
 
-% res = rica(images, basisSize, 'IterationLimit', 1e3, 'VerbosityLevel', 1, ...
-%     'InitialTransformWeights', transMatrix, 'Lambda', 10);
+% res = rica(imgData, basisSize, 'IterationLimit', 1e3, 'VerbosityLevel', 1, ...
+%     'InitialTransformWeights', res.TransformWeights, 'Lambda', 5);
 
 %% Visulization of Learned Basis
-% basisSet = transMatrix;
-basisSet = res.TransformWeights;
+% basisSet = res.TransformWeights;
 basisSet = reshape(basisSet, [dx, dy, 3, basisSize]);
 
 % N by N large "image"
@@ -36,7 +36,7 @@ for i = 1:allDim
         basis = (basis - min(basis))/(max(basis) - min(basis));
 
         % Add to Display Image 
-        basisImg( (i-1) * dx + 1:i * dx, (j-1) * dy + 1:j * dy, :) = reshape(basis, dx, dy, 3);
+        basisImg((i-1) * dx + 1:i * dx, (j-1) * dy + 1:j * dy, :) = reshape(basis, [dx, dy, 3]);
     end
 end
 
