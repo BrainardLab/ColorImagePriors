@@ -9,11 +9,6 @@ rmdRender = eye(dx * dy * 3);
 rmdRender = rmdRender(renderIdx, :);
 
 %% PCA
-
-% load('pcaBasis.mat');
-% scaleMatrix = diag(sqrt(pcaVar));
-% regBasis    = pcaBasis * scaleMatrix;
-
 load('./learned_basis/pca_basis.mat');
 imageName = 'color-balls.jpg';
 
