@@ -3,7 +3,7 @@
 
 %% Load Image Database
 projectName = 'ColorImagePriors';
-dataBaseDir = getpref(projectName, 'dataDir');
+dataBaseDir = getpref(projectName, 'trainingDataDir');
 dataFileIn = fullfile(dataBaseDir, 'CIFAR_all', 'image_cifar_all.mat');
 load(dataFileIn);
 
