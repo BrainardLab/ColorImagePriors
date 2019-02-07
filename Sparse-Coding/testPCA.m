@@ -13,7 +13,7 @@ dx = 32; dy = 32; imgDim = 32;
 basisSet = pcaBasis;
 basisSet = reshape(basisSet, [dx, dy, 3, basisSize]);
 
-% 10 by 10 large "image"
+% 55 by 55 large "image"
 allDim   = 55; 
 basisImg = zeros(allDim * imgDim, allDim * imgDim, 3);
 

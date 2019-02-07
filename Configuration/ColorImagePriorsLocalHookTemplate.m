@@ -28,14 +28,12 @@ userID = strtrim(userID);
 switch userID
     case {'dhb'}
         baseDir = '/Users1/Users1Shared/Matlab/Analysis/ColorImagePriors';
-    case {'Lingqi'}
-        baseDir = '/Users/';
     otherwise
-        baseDir  = fullfile(userpath,'output','ColorImagePriors');
+        baseDir = ['/Users/' sysInfo.userShortName '/Dropbox (Aguirre-Brainard Lab)'];
 end
 
 %% Set the preferences
-setpref(projectName,'imageDataBaseDir',fullfile(baseDir,'ImageDatabase'));
+setpref(toolboxName,'dataDir',fullfile(baseDir,'IBIO_Analysis','ISETImagePipeline'));
 
 
 
