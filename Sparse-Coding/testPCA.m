@@ -8,7 +8,7 @@ dataFileIn = fullfile(dataBaseDir, 'CIFAR_all', 'image_cifar_all.mat');
 load(dataFileIn);
 
 %% PCA Basis
-[pcaBasis, ~, pcaVar] = pca(imgData);
+[pcaBasis, ~, pcaVar] = pca(image_all);
 
 %% Visulization
 basisSize = 3072; 
@@ -53,3 +53,16 @@ render = eye(dx * dy * 3);
 render = render(renderIdx, :);
 
 imgReconFun('plane.jpg', @pcaRecon, regBasis, render, 0.2, true);
+
+%% Test PCA Reconstruction with ISETBio
+testImage = reshape(image_all(1, :), [32, 32, 3]);
+
+retina = ConeResponse('eccBasedConeDensity', true, 'eccBasedConeQuantal', true);
+likelihood = PoissonLikelihood(retina, [32, 32, 3]);
+
+[~, ~, testExcitation] = retina.compute(testImage);
+[reconImage, coff] = PoissonLikelihood.pcaRecon(likelihood, testExcitation, regBasis);
+
+
+
+
