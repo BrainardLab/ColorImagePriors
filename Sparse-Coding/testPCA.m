@@ -1,9 +1,13 @@
 % Find PCA basis with stardard PCA method
 % Test PCA / Ridge regression reconstruction method
 
+%% Load Image Database
+projectName = 'ColorImagePriors';
+dataBaseDir = getpref(projectName, 'dataDir');
+dataFileIn = fullfile(dataBaseDir, 'CIFAR_all', 'image_cifar_all.mat');
+load(dataFileIn);
+
 %% PCA Basis
-load('./cifar-all-mat/image_all.mat');
-imgData = image_all;
 [pcaBasis, ~, pcaVar] = pca(imgData);
 
 %% Visulization
