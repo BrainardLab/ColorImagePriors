@@ -31,7 +31,7 @@ switch userID
 end
 
 %% Set the preferences
-setpref(projectName,'dataDir',fullfile(baseDir,'IBIO_Analysis','ISETImagePipeline'));
+setpref(projectName,'trainingDataDir',fullfile(baseDir,'IBIO_Analysis','ISETImagePipeline'));
 
 
 
