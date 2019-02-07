@@ -62,7 +62,3 @@ likelihood = PoissonLikelihood(retina, [32, 32, 3]);
 
 [~, ~, testExcitation] = retina.compute(testImage);
 [reconImage, coff] = PoissonLikelihood.pcaRecon(likelihood, testExcitation, regBasis);
-
-
-
-
