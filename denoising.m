@@ -1,5 +1,5 @@
 %% Load dataset
-projectName = 'ISETImagePipeline';
+projectName = 'ColorImagePriors';
 thisImageSet = 'CIFAR_all';
 dataBaseDir = getpref(projectName, 'dataDir');
 
@@ -10,22 +10,6 @@ load(dataInDir);
 imageTr = image_all(1:9.5e4, :);
 imageTe = image_all(9.5e4+1:end, :);
 clear image_all;
-
-%% Noisy image dataset
-snr = zeros(1, 8);
-for idx = 1:8
-    testIdx = randi([1, 5000]);
-    image = imageTr(testIdx, :);
-    noisy = image + normrnd(0, 0.1, size(image));
-    
-    subplot(4, 4, 2*idx-1);
-    imshow(reshape(image, [32, 32, 3]), 'InitialMagnification', 500);
-    
-    subplot(4, 4, 2*idx);
-    imshow(reshape(noisy, [32, 32, 3]), 'InitialMagnification', 500);
-    
-    snr(idx) = imStats(image, noisy);
-end
 
 %% Gaussian model
 [regBasis, mu] = computeBasisPCA(imageTr, 32);
