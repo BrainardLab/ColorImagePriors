@@ -31,8 +31,8 @@ for idx = 1:6
     subplot(6, 3, 3 * idx);
     imshow(reshape(recon, imageSize), 'InitialMagnification', 500);
     
-    [~, snr(1, idx)] = imStats(image, noisy, false);
-    [~, snr(2, idx)] = imStats(image, recon, false);
+    [~, snr(1, idx)] = imStats(image, noisy, true);
+    [~, snr(2, idx)] = imStats(image, recon, true);
 end
 
 %% Evaluation
@@ -47,4 +47,4 @@ for idx = 1:nTest
     end
 end
 
-plot(regPara, mean(SNR, 2)); 
+plot(regPara, mean(SNR, 2));
