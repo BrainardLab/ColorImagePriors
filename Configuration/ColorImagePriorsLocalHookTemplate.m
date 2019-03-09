@@ -13,8 +13,8 @@ function ColorImagePriorsLocalHook
 % to match what is true on your computer.
 
 %% Say hello
-fprintf('Running LightnessPopCode local hook\n');
-
+fprintf('Running ColorImagePriors local hook\n');
+sysInfo = GetComputerInfo();
 %% Specify project name and location
 projectName = 'ColorImagePriors';
 if (ispref(projectName))
