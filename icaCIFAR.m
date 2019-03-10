@@ -16,7 +16,7 @@ clear image_all;
 X = (U * diag(sqrt(SIG)) * Z' + MU')';
 
 %% RICA analysis
-nBasis = 58 * 58;
+nBasis = 3072;
 Mdl    = rica(Z, nBasis, 'IterationLimit', 2e3, 'VerbosityLevel', 1, 'GradientTolerance', 1e-4, 'StepTolerance', 1e-4);
 
 %% Visualization
