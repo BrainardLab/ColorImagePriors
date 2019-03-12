@@ -23,7 +23,7 @@ basisInDir = fullfile(dataBaseDir, thisImageSet, 'sparse_coding');
 basisName  = 'ica_gray_1600.mat';
 load(fullfile(basisInDir, basisName));
 
-W   = Mdl.TransformWeights; nBasis = 1600;
+W = Mdl.TransformWeights; nBasis = 1600;
 [~] = visualizeBasis(U * diag(sqrt(SIG)) * W, 32, nBasis, true);
 
 regBasis = U * diag(sqrt(SIG)) * W;
