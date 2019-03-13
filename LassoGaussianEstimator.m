@@ -15,7 +15,7 @@ classdef LassoGaussianEstimator < BayesianEstimator
             
             Mdl = fitrlinear(this.combinedRender, target, 'Lambda', lambda, ...
                 'Learner', 'leastsquares', 'Regularization', 'lasso', 'FitBias', false, 'Solver', 'sparsa', 'Verbose', 0, ...
-                'BetaTolerance', 1e-8, 'GradientTolerance', 1e-8, 'IterationLimit', 8e3);
+                'BetaTolerance', 1e-8, 'GradientTolerance', 1e-8, 'IterationLimit', 5e3);
             reconImage = (this.Basis(:, 1:this.nDim) * Mdl.Beta + this.Mu)';
         end
     end
