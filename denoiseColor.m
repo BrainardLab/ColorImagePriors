@@ -1,16 +1,5 @@
 %% Load dataset
-projectName = 'ColorImagePriors';
-thisImageSet = 'CIFAR_all';
-dataBaseDir = getpref(projectName, 'dataDir');
-
-testData = 'image_cifar_all.mat';
-dataInDir = fullfile(dataBaseDir, thisImageSet, testData);
-load(dataInDir);
-
-imageTr = image_all(1:9.5e4, :);
-imageTe = image_all(9.5e4+1:end, :);
-nTestSet = 5e3;
-clear image_all;
+[imageTr, imageTe] = cifarLoader('cifar-', 0.95);
 
 %% Gaussian model
 [regBasis, mu] = computeBasisPCA(imageTr, 32);
