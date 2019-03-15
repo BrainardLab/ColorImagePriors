@@ -1,18 +1,24 @@
 %% Load dataset
-[imageTr, imageTe] = cifarLoader('cifar-', 0.95);
+[imageTr, ~] = cifarLoader('extend', 0.8);
+[~, imageTe] = cifarLoader('cifar', 0.95);
+
+nTrainSet = size(imageTr, 1);
+nTestSet  = size(imageTe, 1);
 
 %% Gaussian model
 [regBasis, mu] = computeBasisPCA(imageTr, 32);
 estimatorRidge = RidgeGaussianEstimator(eye(3072), regBasis, mu');
 
 %% Sparse (LASSO) model
-basisInDir = fullfile(dataBaseDir, thisImageSet, 'sparse_basis');
-basisName  = 'ica_color_3600_cvg.mat';
+% Load learned basis function
+projectName = 'ISETImagePipeline';
+dataBaseDir = getpref(projectName, 'dataDir');
+basisInDir = fullfile(dataBaseDir, 'CIFAR_extend');
+basisName  = 'ica_color_3600.mat';
 load(fullfile(basisInDir, basisName));
 
-W = Mdl.TransformWeights;
-[~, U, SIG, MU] = whitening(imageTr, 'svd');
-
+% W = Mdl.TransformWeights;
+% [~, U, SIG, MU] = whitening(imageTr, 'svd');
 regBasis = U * diag(sqrt(SIG)) * W;
 estimatorLasso = LassoGaussianEstimator(eye(3072), regBasis, MU');
 
