@@ -1,23 +1,38 @@
 %% Load dataset
+dataset = 'extend';
+if(strcmp(dataset, 'extend'))
+    projectName = 'ISETImagePipeline';
+    thisImageSet = 'CIFAR_extend';
+    dataBaseDir = getpref(projectName, 'dataDir');
+    
+    testData = 'cifarExtend_240k.mat';
+    dataInDir = fullfile(dataBaseDir, thisImageSet, testData);
+    load(dataInDir);
+    
+    imageTr = image_all(1:20e4, :);
+    imageTe = image_all(23.5e4+1:end, :);
+    clear image_all;
+else
+    thisImageSet = 'CIFAR_all';
+    dataBaseDir = getpref(projectName, 'dataDir');
+    
+    testData = 'image_cifar_all.mat';
+    dataInDir = fullfile(dataBaseDir, thisImageSet, testData);
+    load(dataInDir);
+    
+    imageTr = image_all(1:9.5e4, :);
+    imageTe = image_all(9.5e4+1:end, :);
+    clear image_all;
+    
+end
 projectName = 'ISETImagePipeline';
-thisImageSet = 'CIFAR_all';
-dataBaseDir = getpref(projectName, 'dataDir');
-
-testData = 'image_cifar_all.mat';
-dataInDir = fullfile(dataBaseDir, thisImageSet, testData);
-load(dataInDir);
-
-imageTr = image_all(1:9.5e4, :);
-imageTe = image_all(9.5e4+1:end, :);
-clear image_all;
 
 %% Whitening, SVD
 [Z, U, SIG, MU] = whitening(imageTr, 'svd');
-X = (U * diag(sqrt(SIG)) * Z' + MU')';
 
 %% RICA analysis
-nBasis = 3072;
-Mdl    = rica(Z, nBasis, 'IterationLimit', 2e3, 'VerbosityLevel', 1, 'GradientTolerance', 1e-4, 'StepTolerance', 1e-4);
+nBasis = 60 * 60;
+Mdl    = rica(Z, nBasis, 'IterationLimit', 5e3, 'VerbosityLevel', 1, 'GradientTolerance', 1e-4, 'StepTolerance', 1e-4);
 
 %% Visualization
 W   = Mdl.TransformWeights;
