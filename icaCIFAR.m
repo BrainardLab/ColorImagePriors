@@ -1,11 +1,11 @@
 %% Load dataset
-[imageTr, ~] = cifarLoader('extend', 0.9);
+[imageTr, ~] = cifarLoader('extend', 1);
 
 %% Whitening, SVD
 [Z, U, SIG, MU] = whitening(imageTr, 'svd');
 
 %% RICA analysis
-nBasis = 60 * 60;
+nBasis = 64 * 64;
 Mdl    = rica(Z, nBasis, 'IterationLimit', 5e3, 'VerbosityLevel', 1, 'GradientTolerance', 1e-4, 'StepTolerance', 1e-4);
 
 %% Visualization
