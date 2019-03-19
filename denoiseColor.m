@@ -35,7 +35,7 @@ for idx = 1:6
     noisy = image + normrnd(0, 0.1, size(image));
     
     reconGauss = estimatorRidge.estimate(noisy, 'regularization', 0.01);
-    reconLasso = estimatorLasso.estimate(noisy, 'regularization', 0.01);
+    reconLasso = estimatorLasso.estimate(noisy, 'regularization', 0.012);
     
     subplot(6, 4, 4 * idx - 3);
     imshow(reshape(image, imageSize), 'InitialMagnification', 500);    

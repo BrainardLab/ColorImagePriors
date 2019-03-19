@@ -35,7 +35,7 @@ filterRecon = @(image) rconv2(image,lo_filt);
 
 %% Denoising test
 imageSize = [32, 32];
-figure();
+figure(); 
 for idx = 1:6
     testIdx = randi([1, nTestSet]);
     image = imageTr(testIdx, :);
